@@ -8,26 +8,38 @@
 </head>
 <body>
     <div class="form-inscription">
-        
+
         <?php 
+
+            function isValidEmail($email) {
+                $pattern = '/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/';
+                return preg_match($pattern, $email) === 1;
+            }
+
             if( isset($_POST["inscription"]) ){
 
-                $email = $_POST["email"];
-                $theme = $_POST["theme"];
-                
-                /* Etape 1 : Connexion a la base de données buzzletters */
-                $connexion = new mysqli("localhost", "root", "root", "buzzletters");
-                if ($connexion->connect_error) {
-                    die('Erreur de connexion à la base de données : '. $connexion->connect_error);
-                }
-                
-                /* Etape 2 : Requete pour inserer les données */
-                $result = $connexion->query("INSERT INTO subscribers (email, theme) VALUES ('$email', '$theme') ");
+                if(!empty($_POST["email"]) && !empty($_POST["theme"])){
 
-                if($result){
-                    echo "<p class='alert alert-success'>Vous êtes bien inscris à notre newsletters</p>"; 
+                    $email = $_POST["email"];
+                    $theme = $_POST["theme"];
+
+                    /* Etape 1 : Connexion a la base de données buzzletters */
+                    $connexion = new mysqli("localhost", "root", "root", "buzzletters");
+                    if ($connexion->connect_error) {
+                        die('Erreur de connexion à la base de données : '. $connexion->connect_error);
+                    }
+                    
+                    /* Etape 2 : Requete pour inserer les données */
+                    $result = $connexion->query("INSERT INTO subscribers (email, theme) VALUES ('$email', '$theme') ");
+
+                    if($result){
+                        echo "<p class='alert alert-success'>Vous êtes bien inscris à notre newsletters</p>"; 
+                    }else{
+                        echo "<p class='alert alert-error'>Une erreur est survenue, Veuillez réessayer</p>";
+                    }
+
                 }else{
-                    echo "<p class='alert alert-error'>Une erreur est survenue, Veuillez réessayer</p>";
+                    echo "<p class='alert alert-error'>Tous les champs sont requis</p>";
                 }
                 
             }
@@ -38,11 +50,11 @@
         <form action="" method="POST">
             <div>
                 <label for="email">Email</label>
-                <input type="email" name="email" id="email">
+                <input type="email" name="email" id="email" required>
             </div>
             <div>
                 <label for="theme">Thème</label>
-                <select name="theme" id="theme">
+                <select name="theme" id="theme" required>
                     <option value="loisir">Loisir</option>
                     <option value="sport">Sport</option>
                     <option value="technologies">Technologies</option>
