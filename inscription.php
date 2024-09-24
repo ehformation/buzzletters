@@ -7,31 +7,32 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <?php 
-        if( isset($_POST["inscription"]) ){
-
-            $email = $_POST["email"];
-            $theme = $_POST["theme"];
-            
-            /* Etape 1 : Connexion a la base de données buzzletters */
-            $connexion = new mysqli("localhost", "root", "root", "buzzletters");
-            if ($connexion->connect_error) {
-                die('Erreur de connexion à la base de données : '. $connexion->connect_error);
-            }
-            
-            /* Etape 2 : Requete pour inserer les données */
-            $result = $connexion->query("INSERT INTO subscribers (email, theme) VALUES ('$email', '$theme') ");
-
-            if($result){
-                echo "<p>Vous êtes bien inscris à notre newsletters</p>"; 
-            }else{
-                echo "<p>Une erreur est survenue, Veuillez réessayer</p>";
-            }
-            
-        }
-    ?>
-
     <div class="form-inscription">
+        
+        <?php 
+            if( isset($_POST["inscription"]) ){
+
+                $email = $_POST["email"];
+                $theme = $_POST["theme"];
+                
+                /* Etape 1 : Connexion a la base de données buzzletters */
+                $connexion = new mysqli("localhost", "root", "root", "buzzletters");
+                if ($connexion->connect_error) {
+                    die('Erreur de connexion à la base de données : '. $connexion->connect_error);
+                }
+                
+                /* Etape 2 : Requete pour inserer les données */
+                $result = $connexion->query("INSERT INTO subscribers (email, theme) VALUES ('$email', '$theme') ");
+
+                if($result){
+                    echo "<p class='alert alert-success'>Vous êtes bien inscris à notre newsletters</p>"; 
+                }else{
+                    echo "<p class='alert alert-error'>Une erreur est survenue, Veuillez réessayer</p>";
+                }
+                
+            }
+        ?>
+    
         <h1>Inscris toi à notre newsletters</h1>
         <p>Reste informé et ne manque aucune actualité passionnante ! En t'inscrivant à Buzzletters, tu recevras chaque semaine des contenus sur mesure, choisis selon tes intérêts. Que tu sois passionné de loisirs, de sport, de technologies, d'animaux, de musique ou de films, notre newsletter te proposera des articles, des conseils, et bien plus encore, directement dans ta boîte mail. Rejoins notre communauté et partage tes passions avec nous !</p>
         <form action="" method="POST">

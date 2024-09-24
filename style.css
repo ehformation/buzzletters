@@ -35,3 +35,15 @@ p {
     font-style: italic;
     margin-bottom: 32px;
 }
+
+.alert {
+    padding: 12px;
+    color: white;
+}
+
+.alert.alert-success {
+    background: #00bb00;
+}
+.alert.alert-error {
+    background: #ee4b4b;
+}
