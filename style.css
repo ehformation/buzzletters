@@ -1,0 +1,37 @@
+* {
+    box-sizing: border-box;
+}
+
+.form-inscription {
+    width: 40%;
+    margin: auto;
+    font-family: Arial;
+    padding: 42px;
+    margin-top: 40px;
+    box-shadow: 1px 1px 10px #eee;
+    border-radius: 20px;
+    background: white;
+}
+
+form input, form select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #eee;
+    margin: 12px 0;
+}
+
+form button {
+    background: #58b883;
+    border: none;
+    color: #ffffff;
+    width: 100%;
+    padding: 10px;
+    margin-top: 12px;
+}
+
+p {
+    color: #8b8b8b;
+    font-size: 14px;
+    font-style: italic;
+    margin-bottom: 32px;
+}
