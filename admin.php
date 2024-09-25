@@ -8,7 +8,7 @@
 </head>
 <body>
     <?php 
-
+        require 'functions.php';
         /**
          * admin.php?delete&id=15
          * $_GET 
@@ -69,9 +69,11 @@
                      *                  theme   | animaux 
                     */
                     $id = $subscriber["id"];
+                    $class = getClassByTheme($subscriber["theme"]);
+
                     echo "<tr>"; 
                         echo "<td>" . $subscriber["email"] . "</td>";
-                        echo "<td>" . $subscriber["theme"] . "</td>";
+                        echo "<td><div class='$class' >" . $subscriber["theme"] . "</div></td>";
                         echo "<td>" . $subscriber["age"] . "</td>";
                         echo "<td><a href='?delete&id=$id'>désinscrire</a></td>";
                     echo "<tr>";

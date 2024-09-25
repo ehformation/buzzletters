@@ -22,4 +22,21 @@ function emailExist($email){
     }
 }
 
+function getClassByTheme($theme){
+    $class = '';
+    switch ($theme) {
+        case 'loisir':
+            $class = 'badge';
+            break;
+        case 'animaux':
+            $class = 'badge badge-brown';
+            break;
+        case 'musique':
+            $class = 'badge badge-yellow';
+            break;
+    }
+
+    return $class;
+}
+
 ?>

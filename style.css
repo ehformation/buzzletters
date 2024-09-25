@@ -63,3 +63,17 @@ table {
 table td, table th {
     padding: 12px;
 }
+.badge{
+    background: orange;
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 5px;
+    color: white;
+    text-transform: capitalize;
+} 
+.badge-brown{
+    background-color: brown;
+}
+.badge-yellow{
+    background-color: rgb(134, 134, 15);
+}
