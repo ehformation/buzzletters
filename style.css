@@ -1,11 +1,13 @@
 * {
     box-sizing: border-box;
 }
+body{
+    font-family: Arial;
+}
 
 .form-inscription {
     width: 40%;
     margin: auto;
-    font-family: Arial;
     padding: 42px;
     margin-top: 40px;
     box-shadow: 1px 1px 10px #eee;
@@ -46,4 +48,18 @@ p {
 }
 .alert.alert-error {
     background: #ee4b4b;
+}
+
+.container {
+    width: 1024px;
+    margin: auto;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+table td, table th {
+    padding: 12px;
 }
