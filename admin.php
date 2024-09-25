@@ -8,6 +8,8 @@
 </head>
 <body>
     <div class="container">
+        <h1>Buzzletters - Admin</h1>
+        
         <table border="1">
             <tr>
                 <th>Email</th>
