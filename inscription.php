@@ -18,35 +18,57 @@
                 return preg_match($pattern, $email) === 1;
             }
 
+            function emailExist($email){
+                /* Etape 1 : Connexion a la base de données buzzletters */
+                $connexion = new mysqli("localhost", "root", "root", "buzzletters");
+                if ($connexion->connect_error) {
+                    die('Erreur de connexion à la base de données : '. $connexion->connect_error);
+                }
+
+                /* Etape 2 : Requete pour rechercher un email*/
+                $result = $connexion->query("SELECT * FROM subscribers WHERE email = $email");
+
+                if ($result->num_rows > 0) {
+                    return true; // L'email existe
+                } else {
+                    return false; // L'email n'existe pas
+                }
+            }
+
             // Vérifie si le formulaire d'inscription a été soumis
             if( isset($_POST["inscription"]) ){
 
                 // Vérifie si les champs email et theme ne sont pas vides
-                if(!empty($_POST["email"]) && !empty($_POST["theme"])){
+                if( !empty($_POST["email"]) && !empty($_POST["theme"]) && !empty($_POST["age"]) ){
 
                     $email = $_POST["email"];
                     $theme = $_POST["theme"];
+                    $age = $_POST["age"];
+                    
+                    if($age < 12){
+                        echo "<p class='alert alert-error'>Vous être trop jeune, vous ne pouvez pas vous inscrire.</p>";
+                    }else{
+                        // Vérifie si l'email est valide
+                        if(isValidEmail($email)) {
 
-                    // Vérifie si l'email est valide
-                    if(isValidEmail($email)) {
+                            /* Etape 1 : Connexion a la base de données buzzletters */
+                            $connexion = new mysqli("localhost", "root", "root", "buzzletters");
+                            if ($connexion->connect_error) {
+                                die('Erreur de connexion à la base de données : '. $connexion->connect_error);
+                            }
+                            
+                            /* Etape 2 : Requete pour inserer les données */
+                            $result = $connexion->query("INSERT INTO subscribers (email, theme, age) VALUES ('$email', '$theme', '$age' )");
 
-                        /* Etape 1 : Connexion a la base de données buzzletters */
-                        $connexion = new mysqli("localhost", "root", "root", "buzzletters");
-                        if ($connexion->connect_error) {
-                            die('Erreur de connexion à la base de données : '. $connexion->connect_error);
+                            if($result){
+                                echo "<p class='alert alert-success'>Vous êtes bien inscris à notre newsletters</p>"; 
+                            }else{
+                                echo "<p class='alert alert-error'>Une erreur est survenue, Veuillez réessayer</p>";
+                            }
+
+                        }else {
+                            echo "<p class='alert alert-error'>L'email n'est pas valide</p>";
                         }
-                        
-                        /* Etape 2 : Requete pour inserer les données */
-                        $result = $connexion->query("INSERT INTO subscribers (email, theme) VALUES ('$email', '$theme') ");
-
-                        if($result){
-                            echo "<p class='alert alert-success'>Vous êtes bien inscris à notre newsletters</p>"; 
-                        }else{
-                            echo "<p class='alert alert-error'>Une erreur est survenue, Veuillez réessayer</p>";
-                        }
-
-                    }else {
-                        echo "<p class='alert alert-error'>L'email n'est pas valide</p>";
                     }
 
                 }else {
@@ -62,6 +84,10 @@
             <div>
                 <label for="email">Email</label>
                 <input type="email" name="email" id="email" required>
+            </div>
+            <div>
+                <label for="age">Age</label>
+                <input type="text" name="age" id="age" required>
             </div>
             <div>
                 <label for="theme">Thème</label>

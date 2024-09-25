@@ -7,13 +7,46 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <?php 
+
+        /**
+         * admin.php?delete&id=15
+         * $_GET 
+         * 
+         * Clé          | Valeur
+         * delete       |  
+         * id           | 15
+         * 
+         */
+        if(isset($_GET["delete"])){
+
+            $id_to_delete = $_GET['id'];
+
+            /* Etape 1 : Connexion a la base de données buzzletters */
+            $connexion = new mysqli("localhost", "root", "root", "buzzletters");
+            if ($connexion->connect_error) {
+                die('Erreur de connexion à la base de données : '. $connexion->connect_error);
+            }
+
+            /* Etape 2 : Requete pour supprimer */
+            $result = $connexion->query("DELETE FROM subscribers WHERE id=$id_to_delete");
+
+            if($result){
+                echo "<p class='alert alert-success'>L'abonné a bien été désinscris</p>"; 
+            }else{
+                echo "<p class='alert alert-error'>Une erreur est survenue, Veuillez réessayer</p>";
+            }
+
+        }
+    ?>
     <div class="container">
         <h1>Buzzletters - Admin</h1>
-        
+
         <table border="1">
             <tr>
                 <th>Email</th>
                 <th>Thème</th>
+                <th>Age</th>
                 <th>Action</th>
             </tr>
 
@@ -41,10 +74,12 @@
                      *                  email   | richard@gmail.com
                      *                  theme   | animaux 
                     */
+                    $id = $subscriber["id"];
                     echo "<tr>"; 
                         echo "<td>" . $subscriber["email"] . "</td>";
                         echo "<td>" . $subscriber["theme"] . "</td>";
-                        echo "<td></td>";
+                        echo "<td>" . $subscriber["age"] . "</td>";
+                        echo "<td><a href='?delete&id=$id'>désinscrire</a></td>";
                     echo "<tr>";
 
                 }
