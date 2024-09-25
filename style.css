@@ -16,7 +16,6 @@ body{
 }
 
 form input, form select {
-    width: 100%;
     padding: 10px;
     border: 1px solid #eee;
     margin: 12px 0;
@@ -26,9 +25,12 @@ form button {
     background: #58b883;
     border: none;
     color: #ffffff;
-    width: 100%;
     padding: 10px;
     margin-top: 12px;
+}
+
+.form-inscription form input, .form-inscription form select, .form-inscription form button{
+    width: 100%;
 }
 
 p {
