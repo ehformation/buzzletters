@@ -10,19 +10,24 @@
     <div class="form-inscription">
 
         <?php 
-
+            /*
+            La fonction isValidEmail($email) valide une adresse email en utilisant une expression régulière. Elle définit un modèle ($pattern) qui décrit le format acceptable d'une adresse email, incluant des caractères alphanumériques, le symbole "@", et un domaine suivi d'une extension. La fonction utilise preg_match() pour comparer l'email fourni avec le modèle défini. Si l'email correspond au modèle, elle retourne true, sinon elle retourne false, indiquant si l'email est valide ou non. 
+            */
             function isValidEmail($email) {
                 $pattern = '/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/';
                 return preg_match($pattern, $email) === 1;
             }
 
+            // Vérifie si le formulaire d'inscription a été soumis
             if( isset($_POST["inscription"]) ){
 
+                // Vérifie si les champs email et theme ne sont pas vides
                 if(!empty($_POST["email"]) && !empty($_POST["theme"])){
 
                     $email = $_POST["email"];
                     $theme = $_POST["theme"];
 
+                    // Vérifie si l'email est valide
                     if(isValidEmail($email)) {
 
                         /* Etape 1 : Connexion a la base de données buzzletters */
