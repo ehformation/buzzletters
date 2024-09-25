@@ -23,10 +23,7 @@
             $id_to_delete = $_GET['id'];
 
             /* Etape 1 : Connexion a la base de données buzzletters */
-            $connexion = new mysqli("localhost", "root", "root", "buzzletters");
-            if ($connexion->connect_error) {
-                die('Erreur de connexion à la base de données : '. $connexion->connect_error);
-            }
+            require "connect.php";
 
             /* Etape 2 : Requete pour supprimer */
             $result = $connexion->query("DELETE FROM subscribers WHERE id=$id_to_delete");
@@ -52,10 +49,7 @@
 
             <?php
                 /* Etape 1 : Connexion a la base de données buzzletters */
-                $connexion = new mysqli("localhost", "root", "root", "buzzletters");
-                if ($connexion->connect_error) {
-                    die('Erreur de connexion à la base de données : '. $connexion->connect_error);
-                }
+                require "connect.php";
 
                 /* Etape 2 : Requete pour récuperer les données */
                 $result = $connexion->query("SELECT * FROM subscribers");

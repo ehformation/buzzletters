@@ -20,10 +20,7 @@
 
             function emailExist($email){
                 /* Etape 1 : Connexion a la base de données buzzletters */
-                $connexion = new mysqli("localhost", "root", "root", "buzzletters");
-                if ($connexion->connect_error) {
-                    die('Erreur de connexion à la base de données : '. $connexion->connect_error);
-                }
+                require "connect.php";
 
                 /* Etape 2 : Requete pour rechercher un email*/
                 $result = $connexion->query("SELECT * FROM subscribers WHERE email = '$email'");
@@ -55,10 +52,7 @@
                                 echo "<p class='alert alert-error'>L'email existe deja.</p>";
                             }else{
                                 /* Etape 1 : Connexion a la base de données buzzletters */
-                                $connexion = new mysqli("localhost", "root", "root", "buzzletters");
-                                if ($connexion->connect_error) {
-                                    die('Erreur de connexion à la base de données : '. $connexion->connect_error);
-                                }
+                                require "connect.php";
 
                                 /* Etape 2 : Requete pour inserer les données */
                                 $result = $connexion->query("INSERT INTO subscribers (email, theme, age) VALUES ('$email', '$theme', '$age' )");
