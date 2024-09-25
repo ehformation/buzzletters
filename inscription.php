@@ -26,7 +26,7 @@
                 }
 
                 /* Etape 2 : Requete pour rechercher un email*/
-                $result = $connexion->query("SELECT * FROM subscribers WHERE email = $email");
+                $result = $connexion->query("SELECT * FROM subscribers WHERE email = '$email'");
 
                 if ($result->num_rows > 0) {
                     return true; // L'email existe
@@ -51,20 +51,26 @@
                         // Vérifie si l'email est valide
                         if(isValidEmail($email)) {
 
-                            /* Etape 1 : Connexion a la base de données buzzletters */
-                            $connexion = new mysqli("localhost", "root", "root", "buzzletters");
-                            if ($connexion->connect_error) {
-                                die('Erreur de connexion à la base de données : '. $connexion->connect_error);
-                            }
-                            
-                            /* Etape 2 : Requete pour inserer les données */
-                            $result = $connexion->query("INSERT INTO subscribers (email, theme, age) VALUES ('$email', '$theme', '$age' )");
-
-                            if($result){
-                                echo "<p class='alert alert-success'>Vous êtes bien inscris à notre newsletters</p>"; 
+                            if(emailExist($email)){
+                                echo "<p class='alert alert-error'>L'email existe deja.</p>";
                             }else{
-                                echo "<p class='alert alert-error'>Une erreur est survenue, Veuillez réessayer</p>";
+                                /* Etape 1 : Connexion a la base de données buzzletters */
+                                $connexion = new mysqli("localhost", "root", "root", "buzzletters");
+                                if ($connexion->connect_error) {
+                                    die('Erreur de connexion à la base de données : '. $connexion->connect_error);
+                                }
+
+                                /* Etape 2 : Requete pour inserer les données */
+                                $result = $connexion->query("INSERT INTO subscribers (email, theme, age) VALUES ('$email', '$theme', '$age' )");
+
+                                if($result){
+                                    echo "<p class='alert alert-success'>Vous êtes bien inscris à notre newsletters</p>"; 
+                                }else{
+                                    echo "<p class='alert alert-error'>Une erreur est survenue, Veuillez réessayer</p>";
+                                }
                             }
+
+                            
 
                         }else {
                             echo "<p class='alert alert-error'>L'email n'est pas valide</p>";
