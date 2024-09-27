@@ -8,25 +8,28 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <?php
-        if(isset($_POST["connexion"])){
-            $valid_login = "admin";
-            $valid_mdp = "1234";
+    <div class="form-inscription">
+        <?php
+            if(isset($_POST["connexion"])){
+                $valid_login = "admin";
+                $valid_mdp = "1234";
 
-            if(!empty($_POST["login"]) && !empty($_POST["mdp"])){
-                $login = $_POST["login"];
-                $mdp = $_POST["mdp"];
+                if(!empty($_POST["login"]) && !empty($_POST["mdp"])){
+                    $login = $_POST["login"];
+                    $mdp = $_POST["mdp"];
 
-                if($login == $valid_login && $mdp == $valid_mdp){
-                    $_SESSION["login"] = $login;
-                    header("Location: admin.php");
+                    if($login == $valid_login && $mdp == $valid_mdp){
+                        $_SESSION["login"] = $login;
+                        header("Location: admin.php");
+                    }else{
+                        echo "<div class='alert alert-error'>Identifiant ou mot de passe incorrect</div>";
+                    }
                 }
             }
-        }
-    
-    ?>
+        
+        ?>
 
-    <div class="form-inscription">
+    
         <h1>Connectez-vous à l'admin Buzzletters</h1>
         <form action="" method="post">
             <div>

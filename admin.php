@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,6 +8,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <?php if(isset($_SESSION["login"])) : ?>
     <?php 
         require 'functions.php';
         /**
@@ -113,5 +115,9 @@
 
         </table>
     </div>
+    <?php else :  ?>
+        <p>Vous ne pouvez pas accéder à cette page</p>
+
+    <?php endif; ?>
 </body>
 </html>
