@@ -13,7 +13,6 @@ require "functions.php";
 <body>
     <?php if(isLoggedIn()) : ?>
     <?php 
-        require 'functions.php';
         /**
          * admin.php?delete&id=15
          * $_GET 
