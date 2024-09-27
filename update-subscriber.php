@@ -1,4 +1,4 @@
-<?php session_start(); ?>
+<?php require "functions.php" ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,9 +10,8 @@
 <body>
 
         <?php 
-    if(isset($_SESSION["login"])) : 
+    if(isLoggedIn()) : 
         require 'connect.php';
-        require 'functions.php';
         if(isset($_GET["id"])) :
 
         $id = $_GET["id"];

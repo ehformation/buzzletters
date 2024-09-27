@@ -1,4 +1,4 @@
-<?php session_start(); ?>
+<?php require "functions.php" ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,7 +9,7 @@
 </head>
 <body>
     <!-- Si il n'est PAS connecté  -->
-    <?php if(!isset($_SESSION["login"])) : ?>
+    <?php if(!isLoggedIn()) : ?>
         <div class="form-inscription">
             <?php
                 if(isset($_POST["connexion"])){

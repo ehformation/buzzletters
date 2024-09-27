@@ -1,4 +1,7 @@
-<?php session_start(); ?>
+<?php
+require "functions.php";
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,7 +11,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <?php if(isset($_SESSION["login"])) : ?>
+    <?php if(isLoggedIn()) : ?>
     <?php 
         require 'functions.php';
         /**
@@ -46,8 +49,9 @@
         }
     ?>
     <div class="container">
-        <h1>Buzzletters - Admin</h1>
 
+        <h1>Buzzletters - Admin</h1>
+        <a href="deconnexion.php">Deconnexion</a>
         <form action="" method="GET">
             <input type="text" name="s" placeholder="Ex: j.doe@gmail.com">
             <button type="submit" name="search">Rechercher</button>
@@ -115,9 +119,8 @@
 
         </table>
     </div>
-    <?php else :  ?>
-        <p>Vous ne pouvez pas accéder à cette page</p>
-
-    <?php endif; ?>
+    <?php else :  
+        header("Location: connexion.php");
+    endif; ?>
 </body>
 </html>

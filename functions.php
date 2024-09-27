@@ -1,5 +1,5 @@
 <?php 
-
+session_start(); 
 /*
 La fonction isValidEmail($email) valide une adresse email en utilisant une expression régulière. Elle définit un modèle ($pattern) qui décrit le format acceptable d'une adresse email, incluant des caractères alphanumériques, le symbole "@", et un domaine suivi d'une extension. La fonction utilise preg_match() pour comparer l'email fourni avec le modèle défini. Si l'email correspond au modèle, elle retourne true, sinon elle retourne false, indiquant si l'email est valide ou non. 
 */
@@ -37,6 +37,15 @@ function getClassByTheme($theme){
     }
 
     return $class;
+}
+
+function isLoggedIn(){
+    if(isset($_SESSION['login'])){
+        return true;
+    }else{
+        return false;
+    }
+    //returnisset($_SESSION['login'])
 }
 
 ?>
