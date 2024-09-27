@@ -11,19 +11,34 @@
     require 'connect.php';
     if(isset($_GET["id"])) :
 
-            $id = $_GET["id"];
-            $result = $connexion->query("SELECT * FROM subscribers WHERE id = $id");
-            /* Je recupere l'abonée depuis la bdd dont l'id est passé par l'url  */
-            $subscriber = $result->fetch_assoc();
+    $id = $_GET["id"];
+    $result = $connexion->query("SELECT * FROM subscribers WHERE id = $id");
+    /* Je recupere l'abonée depuis la bdd dont l'id est passé par l'url  */
+    $subscriber = $result->fetch_assoc();
 
-            /*
-            * Cle | valeur
-            * email | john@free.fr
-            * theme | loisir
-            * Age   | 23
-             */
-    ?>
-        <form action="" method="POST">
+    /*
+    * Cle | valeur
+    * email | john@free.fr
+    * theme | loisir
+    * Age   | 23
+        */
+    if(isset($_POST['update'])){
+
+        $email = $_POST['email'];
+        $theme = $_POST['theme'];
+        $age = $_POST['age'];
+
+        $result = $connexion->query("UPDATE subscribers SET email = '$email', theme = '$theme', age = '$age' WHERE id = $id");
+
+        if($result){
+            echo "<p class='alert alert-success'>Modifications effectuées</p>"; 
+        }else{
+            echo "<p class='alert alert-error'>Une erreur est survenue, Veuillez réessayer</p>";
+        }
+    }
+    
+    ?><div class="form-inscription">
+        <form action="?id=<?php echo $id ?>" method="POST">
             <div>
                 <label for="email">Email</label>
                 <input type="email" name="email" id="email" required value="<?php echo $subscriber["email"] ?>">
@@ -43,9 +58,9 @@
                     <option value="film" <?php echo ($subscriber["theme"] == 'loisir') ? 'film' : ''; ?>>Film</option>
                 </select>
             </div>
-            <button type="submit" name="inscription" >S'inscrire</button>
+            <button type="submit" name="update" >Modifier</button>
         </form>
-
+    </div>
     <?php else :  ?>
         <p>Aucun abonée n'a été séléctionné</p>
     <?php endif; ?>
