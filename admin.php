@@ -71,7 +71,7 @@
                             echo "<td>" . $subscriber["email"] . "</td>";
                             echo "<td><div class='$class' >" . $subscriber["theme"] . "</div></td>";
                             echo "<td>" . $subscriber["age"] . "</td>";
-                            echo "<td><a href='?delete&id=$id'>désinscrire</a></td>";
+                            echo "<td><a href='?delete&id=$id'>désinscrire</a> <a href='?update&id=$id'>modifier</a></td>";
                         echo "<tr>";
 
                     } 
@@ -103,7 +103,7 @@
                             echo "<td>" . $subscriber["email"] . "</td>";
                             echo "<td><div class='$class' >" . $subscriber["theme"] . "</div></td>";
                             echo "<td>" . $subscriber["age"] . "</td>";
-                            echo "<td><a href='?delete&id=$id'>désinscrire</a></td>";
+                            echo "<td><a href='?delete&id=$id'>désinscrire</a> <a href='update-subscriber.php?id=$id'>modifier</a></td>";
                         echo "<tr>";
 
                     }
