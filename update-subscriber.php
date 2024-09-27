@@ -9,6 +9,7 @@
 <body>
     <?php 
     require 'connect.php';
+    require 'functions.php';
     if(isset($_GET["id"])) :
 
     $id = $_GET["id"];
@@ -23,19 +24,28 @@
     * Age   | 23
         */
     if(isset($_POST['update'])){
+        if( !empty($_POST["email"]) && !empty($_POST["theme"]) && !empty($_POST["age"]) ){
+            $email = $_POST['email'];
+            $theme = $_POST['theme'];
+            $age = $_POST['age'];
 
-        $email = $_POST['email'];
-        $theme = $_POST['theme'];
-        $age = $_POST['age'];
+            if(isValidEmail($email)) {
 
-        $result = $connexion->query("UPDATE subscribers SET email = '$email', theme = '$theme', age = '$age' WHERE id = $id");
+                $result = $connexion->query("UPDATE subscribers SET email = '$email', theme = '$theme', age = '$age' WHERE id = $id");
 
-        if($result){
-            echo "<p class='alert alert-success'>Modifications effectuées</p>"; 
-            header("Location: admin.php"); //redirection de la page vers admin.php
-        }else{
-            echo "<p class='alert alert-error'>Une erreur est survenue, Veuillez réessayer</p>";
-        }
+                if($result){
+                    echo "<p class='alert alert-success'>Modifications effectuées</p>"; 
+                    header("Location: admin.php"); //redirection de la page vers admin.php
+                }else{
+                    echo "<p class='alert alert-error'>Une erreur est survenue, Veuillez réessayer</p>";
+                }
+                
+            }else {
+                echo "<p class='alert alert-error'>L'email n'est pas valide</p>";
+            }
+        }else {
+            echo "<p class='alert alert-error'>Tous les champs sont requis</p>";
+        } 
     }
     
     ?><div class="form-inscription">
