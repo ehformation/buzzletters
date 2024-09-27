@@ -32,6 +32,7 @@
 
         if($result){
             echo "<p class='alert alert-success'>Modifications effectuées</p>"; 
+            header("Location: admin.php"); //redirection de la page vers admin.php
         }else{
             echo "<p class='alert alert-error'>Une erreur est survenue, Veuillez réessayer</p>";
         }
